@@ -70,18 +70,33 @@ function game() {
         positionY = 0;
     }
 
-    //Position snake
-    snake.push({x: positionX, y: positionY})
-
     //Config Snake
     context.fillStyle = "#00f102";
 
     for(let i = 0; i < snake.length; i++){
         context.fillRect(snake[i].x * grid, snake[i].y * grid, grid - 1, grid - 1)
+        if(snake[i].x == positionX && snake[i].y == positionY){
+            tam = 3;
+        }
     }
+
+    //Position snake
+    snake.push({x: positionX, y: positionY})
 
     //delete snake
     while(snake.length > tam){
         snake.shift(); //tira o primeiro valor de um array
     }
+
+    //config food
+    context.fillStyle = "#F1C40F";
+    context.fillRect(foodX*grid, foodY*grid, grid -1, grid -1);
+
+    // eating food
+    if(positionX == foodX && positionY == foodY){
+        tam++;
+        foodX = Math.floor(Math.random()*grid);
+        foodY = Math.floor(Math.random()*grid);
+    }
+
 }
